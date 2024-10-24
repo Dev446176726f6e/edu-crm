@@ -1,0 +1,135 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Employee {
+  id              Int       @id @default(autoincrement())
+  first_name      String
+  last_name       String
+  birthdate       DateTime?
+  phone_number    String
+  gender          String? // enum.
+  email           String    @unique
+  hashed_password String
+  department_id   BigInt?
+  roles_id        BigInt
+  // roles Role[]
+  is_active       Boolean?
+  status          String // enum
+  token           String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  @@map("employees")
+}
+
+model Employee_Role {
+  id Int @id @default(autoincrement())
+}
+
+model Role {
+  id Int @id @default(autoincrement())
+}
+
+model Admin {
+  id              Int      @id @default(autoincrement())
+  first_name      String
+  last_name       String
+  username        String   @unique
+  hashed_password String
+  phone_number    String?
+  roles_id        BigInt
+  is_active       Boolean?
+  is_creator      Boolean?
+  status          String // enum
+  token           String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  @@map("admins")
+}
+
+model Group {
+  id                Int      @id @default(autoincrement())
+  branch_id         BigInt
+  name              String
+  start_date        DateTime
+  end_date          DateTime
+  max_students      Int?
+  student_numbers   Int
+  specialisation_id BigInt?
+  status            String // enum
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  @@map("groups") // classes
+}
+
+model Student {
+  id              Int      @id @default(autoincrement())
+  first_name      String
+  last_name       String
+  gender          String? // enum.
+  phone_number    String
+  date_of_birth   DateTime
+  email           String
+  hashed_password String
+  status          String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  @@map("students")
+}
+
+model Lid {
+  id Int @id @default(autoincrement())
+}
+
+model Lid_Status {
+  id Int @id @default(autoincrement())
+}
+
+model Reason_Lid {
+  id Int @id @default(autoincrement())
+}
+
+model Lesson {
+  id Int @id @default(autoincrement())
+}
+
+model Branch {
+  id Int @id @default(autoincrement())
+}
+
+model Track {
+  id Int @id @default(autoincrement())
+}
+
+model Specialization {
+  id Int @id @default(autoincrement())
+}
+
+model Group_Instructor {
+  id Int @id @default(autoincrement())
+}
+
+model Payment {
+  id Int @id @default(autoincrement())
+}
+
+model Attendance {
+  id Int @id @default(autoincrement())
+}
+
+model Homework {
+  id Int @id @default(autoincrement())
+}
